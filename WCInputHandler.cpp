@@ -4,43 +4,40 @@
 #include <winuser.h>
 #include <chrono>
 #include <thread>
-#include <future>
+#include <vector>
+#include "Helpers.h"
 
+//convert to KeyBind class, KeyBindSet contains all KeyBinds to listen out for on different threads
 using namespace std;
 
-chrono::milliseconds REST_TIME(50);
+const chrono::milliseconds REST_TIME(50);
 
 int main(int argc, char* argv[]) {
-        int numKeysInBind = argc - 1;
-        int* keycode = new int[numKeysInBind]; //memory management
-
-        for (int i = 0; i < numKeysInBind; i++) {
-            keycode[i] = stoi(string(argv[i + 1]));
-        }
-        bool press = false;
-        switch (numKeysInBind)
-        {
-        case 1:
-            while (!press) {
-                if (GetKeyState(keycode[0]) & 0x01) {
-                    press = true;
-                    cout << "Keypress detected" << endl;
-                }
-                this_thread::sleep_for(REST_TIME);
-            }
-        case 2:
-            while (!press) {
-                if ((GetKeyState(keycode[0]) & 0x8000) && (GetKeyState(keycode[1]) & 0x8000)) {
-                    press = true;
-                    cout << "Keypress detected" << endl;
-                }
-                this_thread::sleep_for(REST_TIME);
-            }
-        default:
-            break;
-        }
+    vector<int> keycodes;
     
-    return 1;
+    keycodes.push_back(96);
+    keycodes.push_back(97);
+    keycodes.push_back(98);
+    keycodes.push_back(99);
+    keycodes.push_back(100);
+
+    //Helpers::getKeycodes(argc, argv, keycodes); //commented for test above
+    bool isPressed = false;
+    bool isEnabled = true;
+
+    while (isEnabled) {
+        if (Helpers::isKeyBindActivated(keycodes)) {
+            cout << "Keybind activated" << endl; //replace this with pipe back to js
+        }
+        this_thread::sleep_for(REST_TIME);
+        Helpers::getEnabled(isEnabled);
+    }
+
+    return 0;
 }
 
 //handle multiple button presses with 4 bools
+//https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate?redirectedfrom=MSDN
+//https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+//https://github.com/TylerWray2/GlobalDiscordInputHandler/blob/master/WCInputHandler.cpp
+//generify this
