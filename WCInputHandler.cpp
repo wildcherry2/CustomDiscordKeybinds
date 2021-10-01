@@ -4,7 +4,6 @@
 #include <winuser.h>
 #include <chrono>
 #include <thread>
-#include "KeyDownEvent.h"
 #include <future>
 
 using namespace std;
@@ -13,7 +12,7 @@ chrono::milliseconds REST_TIME(50);
 
 int main(int argc, char* argv[]) {
         int numKeysInBind = argc - 1;
-        int* keycode = new int[numKeysInBind];
+        int* keycode = new int[numKeysInBind]; //memory management
 
         for (int i = 0; i < numKeysInBind; i++) {
             keycode[i] = stoi(string(argv[i + 1]));
