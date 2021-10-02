@@ -7,7 +7,7 @@
 #include <vector>
 #include "Helpers.h"
 
-//convert to KeyBind class, KeyBindSet contains all KeyBinds to listen out for on different threads
+//convert to KeyBind class, KeyBindHost contains all KeyBinds to listen out for on different threads
 using namespace std;
 
 const chrono::milliseconds REST_TIME(50);
@@ -36,8 +36,6 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-//handle multiple button presses with 4 bools
 //https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate?redirectedfrom=MSDN
 //https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 //https://github.com/TylerWray2/GlobalDiscordInputHandler/blob/master/WCInputHandler.cpp
-//generify this
