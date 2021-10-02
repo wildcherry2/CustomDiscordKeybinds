@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <Windows.h>
@@ -10,19 +11,18 @@
 //convert to KeyBind class, KeyBindHost contains all KeyBinds to listen out for on different threads
 using namespace std;
 
-const chrono::milliseconds REST_TIME(50);
+const chrono::milliseconds REST_TIME(25);
 
 int main(int argc, char* argv[]) {
     vector<int> keycodes;
     
     keycodes.push_back(96);
     keycodes.push_back(97);
-    keycodes.push_back(98);
-    keycodes.push_back(99);
-    keycodes.push_back(100);
+    //keycodes.push_back(98);
+    //keycodes.push_back(99);
+    //keycodes.push_back(100);
 
     //Helpers::getKeycodes(argc, argv, keycodes); //commented for test above
-    bool isPressed = false;
     bool isEnabled = true;
 
     while (isEnabled) {
